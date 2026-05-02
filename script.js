@@ -4,12 +4,12 @@ let gameState = {
     clickPower: 1,
     perSecond: 0,
     items: {
-        petal: { owned: 0, baseCost: 10, production: 0 },
-        bee: { owned: 0, baseCost: 100, production: 0.1 },
-        garden: { owned: 0, baseCost: 500, production: 0.5 },
-        greenhouse: { owned: 0, baseCost: 2000, production: 2 },
-        farm: { owned: 0, baseCost: 10000, production: 10 },
-        paradise: { owned: 0, baseCost: 50000, production: 50 }
+        petal: { owned: 0, baseCost: 10, production: 0, emoji: '🌼', name: 'Petal' },
+        bee: { owned: 0, baseCost: 100, production: 0.1, emoji: '🐝', name: 'Busy Bee' },
+        garden: { owned: 0, baseCost: 500, production: 0.5, emoji: '🏡', name: 'Garden' },
+        greenhouse: { owned: 0, baseCost: 2000, production: 2, emoji: '🏠', name: 'Greenhouse' },
+        farm: { owned: 0, baseCost: 10000, production: 10, emoji: '🌾', name: 'Flower Farm' },
+        paradise: { owned: 0, baseCost: 50000, production: 50, emoji: '🌺', name: 'Flower Paradise' }
     }
 };
 
@@ -50,6 +50,36 @@ function updateDisplay() {
         const button = document.querySelector(`[data-item="${itemName}"]`);
         button.disabled = gameState.flowers < cost;
     });
+
+    // Update inventory sidebar
+    updateInventoryDisplay();
+}
+
+// Update inventory sidebar display
+function updateInventoryDisplay() {
+    const inventoryItems = document.getElementById('inventoryItems');
+    inventoryItems.innerHTML = '';
+    
+    let hasItems = false;
+    
+    Object.keys(gameState.items).forEach(itemName => {
+        const item = gameState.items[itemName];
+        if (item.owned > 0) {
+            hasItems = true;
+            const itemElement = document.createElement('div');
+            itemElement.className = 'inventory-item';
+            itemElement.innerHTML = `
+                <span class="inventory-item-emoji">${item.emoji}</span>
+                <div class="inventory-item-name">${item.name}</div>
+                <div class="inventory-item-count">× ${item.owned}</div>
+            `;
+            inventoryItems.appendChild(itemElement);
+        }
+    });
+    
+    if (!hasItems) {
+        inventoryItems.innerHTML = '<div class="inventory-empty">No items yet!<br>Buy something from the shop 🛍️</div>';
+    }
 }
 
 // Calculate per second production
@@ -212,12 +242,12 @@ function resetGame() {
             clickPower: 1,
             perSecond: 0,
             items: {
-                petal: { owned: 0, baseCost: 10, production: 0 },
-                bee: { owned: 0, baseCost: 100, production: 0.1 },
-                garden: { owned: 0, baseCost: 500, production: 0.5 },
-                greenhouse: { owned: 0, baseCost: 2000, production: 2 },
-                farm: { owned: 0, baseCost: 10000, production: 10 },
-                paradise: { owned: 0, baseCost: 50000, production: 50 }
+                petal: { owned: 0, baseCost: 10, production: 0, emoji: '🌼', name: 'Petal' },
+                bee: { owned: 0, baseCost: 100, production: 0.1, emoji: '🐝', name: 'Busy Bee' },
+                garden: { owned: 0, baseCost: 500, production: 0.5, emoji: '🏡', name: 'Garden' },
+                greenhouse: { owned: 0, baseCost: 2000, production: 2, emoji: '🏠', name: 'Greenhouse' },
+                farm: { owned: 0, baseCost: 10000, production: 10, emoji: '🌾', name: 'Flower Farm' },
+                paradise: { owned: 0, baseCost: 50000, production: 50, emoji: '🌺', name: 'Flower Paradise' }
             }
         };
         localStorage.removeItem('flowerClickerGame');
