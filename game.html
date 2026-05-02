@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flower Clicker - Play Now</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="game-nav">
+        <div class="nav-container">
+            <a href="landing.html" class="logo-link">🌸 Flower Clicker</a>
+            <a href="landing.html" class="back-btn">← Back to Home</a>
+        </div>
+    </nav>
+
+    <!-- Glitter background -->
+    <div class="glitter-container" id="glitterContainer"></div>
+    
+    <div class="main-layout">
+        <div class="container">
+            <h1>🌸 Flower Clicker 🌸</h1>
+            
+            <div class="game-section">
+                <div class="stats">
+                    <div class="stat-box">
+                        <h2>Flowers</h2>
+                        <p id="flowerCount">0</p>
+                    </div>
+                    <div class="stat-box">
+                        <h2>Per Second</h2>
+                        <p id="perSecond">0</p>
+                    </div>
+                </div>
+
+                <button id="flowerButton" class="flower-button">
+                    <div class="flower-petals">
+                        <div class="petal petal-1">🌸</div>
+                        <div class="petal petal-2">🌸</div>
+                        <div class="petal petal-3">🌸</div>
+                        <div class="petal petal-4">🌸</div>
+                        <div class="petal petal-5">🌸</div>
+                    </div>
+                    <div class="flower-center"></div>
+                    <div class="button-sparkles" id="buttonSparkles"></div>
+                </button>
+
+                <div class="shop">
+                    <h2>Shop</h2>
+                    <div class="items-grid">
+                        <div class="shop-item" id="item-petal">
+                            <h3>🌼 Petal</h3>
+                            <p class="description">+1 flower per click</p>
+                            <div class="cost">
+                                <span id="petal-cost">10</span> flowers
+                            </div>
+                            <button class="buy-btn" data-item="petal">Buy</button>
+                            <p class="owned">Owned: <span id="petal-owned">0</span></p>
+                        </div>
+
+                        <div class="shop-item" id="item-bee">
+                            <h3>🐝 Busy Bee</h3>
+                            <p class="description">+0.1 flowers per second</p>
+                            <div class="cost">
+                                <span id="bee-cost">100</span> flowers
+                            </div>
+                            <button class="buy-btn" data-item="bee">Buy</button>
+                            <p class="owned">Owned: <span id="bee-owned">0</span></p>
+                        </div>
+
+                        <div class="shop-item" id="item-garden">
+                            <h3>🏡 Garden</h3>
+                            <p class="description">+0.5 flowers per second</p>
+                            <div class="cost">
+                                <span id="garden-cost">500</span> flowers
+                            </div>
+                            <button class="buy-btn" data-item="garden">Buy</button>
+                            <p class="owned">Owned: <span id="garden-owned">0</span></p>
+                        </div>
+
+                        <div class="shop-item" id="item-greenhouse">
+                            <h3>🏠 Greenhouse</h3>
+                            <p class="description">+2 flowers per second</p>
+                            <div class="cost">
+                                <span id="greenhouse-cost">2000</span> flowers
+                            </div>
+                            <button class="buy-btn" data-item="greenhouse">Buy</button>
+                            <p class="owned">Owned: <span id="greenhouse-owned">0</span></p>
+                        </div>
+
+                        <div class="shop-item" id="item-farm">
+                            <h3>🌾 Flower Farm</h3>
+                            <p class="description">+10 flowers per second</p>
+                            <div class="cost">
+                                <span id="farm-cost">10000</span> flowers
+                            </div>
+                            <button class="buy-btn" data-item="farm">Buy</button>
+                            <p class="owned">Owned: <span id="farm-owned">0</span></p>
+                        </div>
+
+                        <div class="shop-item" id="item-paradise">
+                            <h3>🌺 Flower Paradise</h3>
+                            <p class="description">+50 flowers per second</p>
+                            <div class="cost">
+                                <span id="paradise-cost">50000</span> flowers
+                            </div>
+                            <button class="buy-btn" data-item="paradise">Buy</button>
+                            <p class="owned">Owned: <span id="paradise-owned">0</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="resetBtn" class="reset-btn">Reset Game</button>
+        </div>
+
+        <!-- Inventory Sidebar -->
+        <div class="inventory-sidebar">
+            <h3>✨ Your Collection ✨</h3>
+            <div class="inventory-items" id="inventoryItems">
+                <div class="inventory-empty">No items yet!<br>Buy something from the shop 🛍️</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
