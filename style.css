@@ -15,12 +15,46 @@ body {
     padding: 20px;
     overflow-x: hidden;
     animation: gradientShift 8s ease infinite;
+    position: relative;
 }
 
 @keyframes gradientShift {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
+}
+
+/* Glitter container for ambient sparkles */
+.glitter-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Background glitter animation */
+.bg-glitter {
+    position: fixed;
+    pointer-events: none;
+    opacity: 0.8;
+    animation: bgGlitterFloat 4s ease-in-out forwards;
+}
+
+@keyframes bgGlitterFloat {
+    0% {
+        opacity: 0;
+        transform: translateY(0) scale(0);
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-100px) scale(1);
+    }
 }
 
 .container {
@@ -35,6 +69,7 @@ body {
     border: 3px dashed rgba(255, 105, 180, 0.3);
     backdrop-filter: blur(10px);
     position: relative;
+    z-index: 10;
 }
 
 .container::before {
@@ -171,7 +206,7 @@ h1 {
     align-items: center;
     justify-content: center;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
     animation: buttonGlow 2s ease-in-out infinite;
 }
 
@@ -195,6 +230,13 @@ h1 {
     height: 100%;
     background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.5), transparent 60%);
     border-radius: 50%;
+    pointer-events: none;
+}
+
+.button-sparkles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
 }
 
@@ -299,8 +341,8 @@ h1 {
 }
 
 @keyframes floatSparkle {
-    0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.2; }
-    50% { transform: translateY(-15px) rotate(180deg); opacity: 0.5; }
+    0%, 100% { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0.2; }
+    50% { transform: translateY(-15px) rotate(180deg) scale(1.2); opacity: 0.6; }
 }
 
 .shop-item:hover::before {
@@ -364,11 +406,29 @@ h1 {
     text-transform: uppercase;
     border: 2px solid rgba(255, 255, 255, 0.4);
     font-family: 'Comic Sans MS', cursive;
+    position: relative;
+    overflow: hidden;
+}
+
+.buy-btn::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .buy-btn:hover {
     transform: scale(1.05);
     box-shadow: 0 12px 30px rgba(255, 105, 180, 0.5);
+}
+
+.buy-btn:hover::before {
+    opacity: 1;
 }
 
 .buy-btn:active {
@@ -424,6 +484,29 @@ h1 {
 
 .reset-btn:active {
     transform: scale(0.95);
+}
+
+/* Sparkle animation */
+.sparkle {
+    position: fixed;
+    font-weight: 900;
+    pointer-events: none;
+    animation: sparkleFloat 1.2s ease-out forwards;
+    filter: drop-shadow(0 2px 4px rgba(255, 105, 180, 0.5));
+}
+
+@keyframes sparkleFloat {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotate(0deg);
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-80px) scale(0.3) rotate(360deg);
+    }
 }
 
 /* Floating text animation */

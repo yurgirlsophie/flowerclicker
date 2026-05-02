@@ -62,6 +62,39 @@ function calculatePerSecond() {
     gameState.perSecond = total;
 }
 
+// Create sparkle effect at a position
+function createSparkle(x, y) {
+    const sparkle = document.createElement('div');
+    sparkle.className = 'sparkle';
+    sparkle.innerHTML = '✨';
+    sparkle.style.left = x + 'px';
+    sparkle.style.top = y + 'px';
+    sparkle.style.fontSize = (8 + Math.random() * 12) + 'px';
+    
+    const randomDelay = Math.random() * 0.3;
+    sparkle.style.animationDelay = randomDelay + 's';
+    
+    document.body.appendChild(sparkle);
+    
+    setTimeout(() => {
+        sparkle.remove();
+    }, 1200);
+}
+
+// Create glitter burst (multiple sparkles in a pattern)
+function createGlitterBurst(x, y, count = 12) {
+    for (let i = 0; i < count; i++) {
+        const angle = (i / count) * Math.PI * 2;
+        const distance = 30 + Math.random() * 40;
+        const sparkleX = x + Math.cos(angle) * distance;
+        const sparkleY = y + Math.sin(angle) * distance;
+        
+        setTimeout(() => {
+            createSparkle(sparkleX, sparkleY);
+        }, Math.random() * 150);
+    }
+}
+
 // Handle flower click
 function clickFlower(event) {
     gameState.flowers += gameState.clickPower;
@@ -71,6 +104,9 @@ function clickFlower(event) {
     
     // Create flower particle burst
     createFlowerParticles(event.pageX, event.pageY);
+    
+    // Create glitter burst
+    createGlitterBurst(event.pageX, event.pageY, 15);
     
     updateDisplay();
     saveGame();
@@ -124,6 +160,26 @@ function createFlowerParticles(x, y) {
     }
 }
 
+// Create random glitter animation on the background
+function createBackgroundGlitter() {
+    const container = document.getElementById('glitterContainer');
+    if (!container) return;
+    
+    const glitter = document.createElement('div');
+    glitter.className = 'bg-glitter';
+    glitter.innerHTML = '✨';
+    glitter.style.left = Math.random() * 100 + '%';
+    glitter.style.top = Math.random() * 100 + '%';
+    glitter.style.fontSize = (6 + Math.random() * 14) + 'px';
+    glitter.style.animationDuration = (2 + Math.random() * 3) + 's';
+    
+    container.appendChild(glitter);
+    
+    setTimeout(() => {
+        glitter.remove();
+    }, 5000);
+}
+
 // Buy an item
 function buyItem(itemName) {
     const cost = getItemCost(itemName);
@@ -131,6 +187,11 @@ function buyItem(itemName) {
     if (gameState.flowers >= cost) {
         gameState.flowers -= cost;
         gameState.items[itemName].owned++;
+        
+        // Create sparkle burst at shop item
+        const itemElement = document.getElementById(`item-${itemName}`);
+        const rect = itemElement.getBoundingClientRect();
+        createGlitterBurst(rect.left + rect.width / 2, rect.top + rect.height / 2, 20);
         
         // Update click power if buying petal
         if (itemName === 'petal') {
@@ -169,6 +230,11 @@ function generatePassiveIncome() {
     const incomePerTick = gameState.perSecond / 10; // 10 ticks per second
     gameState.flowers += incomePerTick;
     updateDisplay();
+    
+    // Occasionally create background glitter
+    if (Math.random() > 0.7) {
+        createBackgroundGlitter();
+    }
 }
 
 // Initialize the game
@@ -176,6 +242,11 @@ function initGame() {
     loadGame();
     calculatePerSecond();
     updateDisplay();
+    
+    // Create initial background glitter
+    for (let i = 0; i < 5; i++) {
+        setTimeout(() => createBackgroundGlitter(), i * 300);
+    }
     
     // Event listeners
     document.getElementById('flowerButton').addEventListener('click', clickFlower);
@@ -194,6 +265,13 @@ function initGame() {
     
     // Save game every 5 seconds
     setInterval(saveGame, 5000);
+    
+    // Create ambient glitter periodically
+    setInterval(() => {
+        if (Math.random() > 0.5) {
+            createBackgroundGlitter();
+        }
+    }, 1500);
 }
 
 // Start the game when DOM is loaded
