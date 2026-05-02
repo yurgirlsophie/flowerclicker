@@ -355,6 +355,29 @@ h1 {
     }
 }
 
+/* Flower particle burst effect */
+.flower-particle {
+    position: fixed;
+    font-size: 24px;
+    pointer-events: none;
+    animation: particle-burst 1.2s ease-out forwards;
+    z-index: 100;
+}
+
+@keyframes particle-burst {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(1) rotate(0deg);
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translate(calc(var(--vx) * 80px), calc(var(--vy) * 80px)) scale(0.3) rotate(360deg);
+    }
+}
+
 /* Particle effect background */
 @keyframes particle-float {
     0%, 100% { transform: translateY(0px) translateX(0px); }
