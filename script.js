@@ -69,6 +69,9 @@ function clickFlower(event) {
     // Create floating text
     createFloatingText(`+${gameState.clickPower}`, event.pageX, event.pageY);
     
+    // Create flower particle burst
+    createFlowerParticles(event.pageX, event.pageY);
+    
     updateDisplay();
     saveGame();
 }
@@ -86,6 +89,39 @@ function createFloatingText(text, x, y) {
     setTimeout(() => {
         floatText.remove();
     }, 1000);
+}
+
+// Create flower particle burst effect
+function createFlowerParticles(x, y) {
+    const flowers = ['🌸', '🌼', '🌺', '🌻', '💐', '🌹', '🏵️', '🌷'];
+    const particleCount = 8;
+    
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'flower-particle';
+        
+        // Random flower emoji
+        particle.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+        
+        // Calculate angle for this particle
+        const angle = (i / particleCount) * Math.PI * 2;
+        const vx = Math.cos(angle);
+        const vy = Math.sin(angle);
+        
+        // Set CSS variables for the animation
+        particle.style.setProperty('--vx', vx);
+        particle.style.setProperty('--vy', vy);
+        
+        particle.style.left = x + 'px';
+        particle.style.top = y + 'px';
+        
+        document.body.appendChild(particle);
+        
+        // Remove particle after animation completes
+        setTimeout(() => {
+            particle.remove();
+        }, 1200);
+    }
 }
 
 // Buy an item
